@@ -15,4 +15,51 @@ connection.connect(function (err) {
   databaseOptions();
 });
 
-function databaseOptions() {}
+function databaseOptions() {
+    inquirer.prompt({
+        message: "what would you like to do?",
+        type: "list",
+        choices: [
+            "add employee",
+            "add department",
+            "add role",
+            "update employee role",
+            "view all departments",
+            "view all employees",
+            "QUIT"
+        ],
+        name: "choice"
+    }).then(answers => {
+        console.log(answers.choice);
+        switch (answers.choice) {
+            case "add employee":
+                addEmployee()
+                break;
+
+            case "add department":
+                addDepartment()
+                break;
+
+            case "add role":
+                addRole()
+                break;
+
+            case "update employee role":
+                updateEmployeeRole();
+                break;
+            
+            case "view all employees":
+                viewEmployees()
+                break;
+    
+            case "view all departments":
+                viewDepartments()
+                break;
+
+            default:
+                connection.end()
+                break;
+    
+        }
+    })
+}
